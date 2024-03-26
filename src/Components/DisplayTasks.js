@@ -1,3 +1,4 @@
+import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 import DeleteTask from "./DeleteTask";
 import EditTask from "./EditTasks";
 
@@ -11,21 +12,27 @@ function DisplayTasks({ tasksList, setTasks }){
     // }
     
     return(
-        <div>
-            <div>
+        <Table style={{width: '100%', display:'flex', justifyContent: 'center'}}>
+            <TableBody>
                 {
                     tasksList && tasksList.length > 0 ?
                     tasksList.map((task, index)=>(
-                        <div key={index} style={{display: 'flex', justifyContent: 'center', gap: '30px', alignContent:'center'}}>
-                            <p key={index}>{task.id} {task.name}</p> 
+                        <TableRow key={index}>
+                            <TableCell align="center" key={index}>
+                                {task.id} {task.name} 
+                            </TableCell>
                             {/* {console.log(task)} */}
-                            <EditTask taskitem={task} />
-                            <DeleteTask tasksList={tasksList} taskitem={task} setTasks={setTasks} />
-                        </div>
+                            <TableCell align="center">
+                                <EditTask taskitem={task} />
+                            </TableCell>
+                            <TableCell align="center">
+                                <DeleteTask tasksList={tasksList} taskitem={task} setTasks={setTasks} />
+                            </TableCell>
+                        </TableRow>
                     )) : null
                 }
-            </div>
-        </div>
+            </TableBody>
+        </Table>
     )
 }
 
