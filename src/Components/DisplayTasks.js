@@ -12,27 +12,30 @@ function DisplayTasks({ tasksList, setTasks }){
     // }
     
     return(
-        <Table style={{width: '100%', display:'flex', justifyContent: 'center'}}>
-            <TableBody>
-                {
-                    tasksList && tasksList.length > 0 ?
-                    tasksList.map((task, index)=>(
-                        <TableRow key={index}>
-                            <TableCell align="center" key={index}>
-                                {task.id} {task.name} 
-                            </TableCell>
-                            {/* {console.log(task)} */}
-                            <TableCell align="center">
-                                <EditTask taskitem={task} />
-                            </TableCell>
-                            <TableCell align="center">
-                                <DeleteTask tasksList={tasksList} taskitem={task} setTasks={setTasks} />
-                            </TableCell>
-                        </TableRow>
-                    )) : null
-                }
-            </TableBody>
-        </Table>
+        <div>
+            <h1>Tasks</h1>
+            <Table style={{width: '100%', display:'flex', justifyContent: 'center'}}>
+                <TableBody>
+                    {
+                        tasksList && tasksList.length > 0 ?
+                        tasksList.map((task, index)=>(
+                            <TableRow key={index}>
+                                <TableCell align="center" key={index}>
+                                    {task.id} {task.name} 
+                                </TableCell>
+                                {/* {console.log(task)} */}
+                                <TableCell align="center">
+                                    <EditTask taskitem={task} />
+                                </TableCell>
+                                <TableCell align="center">
+                                    <DeleteTask tasksList={tasksList} taskitem={task} setTasks={setTasks} />
+                                </TableCell>
+                            </TableRow>
+                        )) : null
+                    }
+                </TableBody>
+            </Table>
+        </div>
     )
 }
 

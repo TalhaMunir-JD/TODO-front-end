@@ -16,9 +16,8 @@ function App() {
   },[])
 
   return (
-    <div className='App'>
+    <div className='App' style={{display:'flex', flexDirection:'row', justifyContent:'center', gap:'250px'}}>
       <AddTasks tasksList={tasks} setTasks={setTasks}/>
-      <h1>Tasks will be displayed here</h1>
       <DisplayTasks tasksList={tasks} setTasks={setTasks}/>
     </div>
   );
