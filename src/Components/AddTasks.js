@@ -37,7 +37,7 @@ function AddTasks ({ tasksList, setTasks}) {
     return(
         <div>
             <div style={{display:'flex', justifyContent:'center'}}>
-                <form onSubmit={handleTaskSubmit} style={{display: "flex", gap: '30px', padding:'30px'}}>
+                <form onSubmit={handleTaskSubmit} style={{display: "flex", flexDirection:'column', gap: '30px', padding:'30px'}}>
                     <TextField size="small" type="text" value={newTask} onChange={handleInputChange} placeholder="task..."/>
                     <TextField size="small" type="text" value={newDescription} onChange={handleDescriptionChange} placeholder="default description" />
                     <Button variant="contained" color="success" type="submit">Add Task</Button>
