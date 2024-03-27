@@ -14,13 +14,13 @@ const createTasks = (obj) => {
 
 const editTasks = (id, updatedTask) => {
     return(
-        axios.put(`http://localhost:8000/api/put/${id}`, updatedTask)
+        axios.put(`http://localhost:8000/api/put/${id}/`, updatedTask)
     )
 }
 
 const deleteTask = (id) => {
     return(
-        axios.delete(`http://localhost:8000/api/delete/${id}`)
+        axios.delete(`http://localhost:8000/api/delete/${id}/`)
     )
 }
 
