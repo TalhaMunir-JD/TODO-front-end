@@ -7,6 +7,19 @@ import taskService from '../Services/Tasks';
 function DisplayTasks({ tasksList, setTasks }){
 
     const[Editedtaskid, setEditedTaskid] = useState(null)
+    const[showDescriptionid, setShowDescriptionid] = useState([])
+
+    const handleTaskClick = (taskid) => {
+        let tasks = [...showDescriptionid]
+        const index = tasks.indexOf(taskid)
+        if(index === -1){
+            tasks.push(taskid)
+        }else{
+            tasks.splice(index, 1)
+        }
+
+        setShowDescriptionid(tasks)
+    }
 
     const handleEditButtonClick = (taskid) => {
         setEditedTaskid(taskid)
@@ -42,6 +55,8 @@ function DisplayTasks({ tasksList, setTasks }){
     const handleEditCancel = () => {
         setEditedTaskid(null)
     }
+
+
     
     return(
         <div>
@@ -52,10 +67,12 @@ function DisplayTasks({ tasksList, setTasks }){
                         tasksList && tasksList.length > 0 ?
                         tasksList.map((task, index)=>(
                             <TableRow key={index}>
-                                <TableCell align="center" key={index}>
+                                <TableCell align="center" key={index} onClick={()=>handleTaskClick(task.id)} >
                                     {task.id} {task.name} 
+                                    {
+                                        showDescriptionid.indexOf(task.id) !== -1 && <p>{task.description} </p> 
+                                    }
                                 </TableCell>
-                                {/* {console.log(task)} */}
                                 <TableCell align="center">
                                     {
                                         Editedtaskid === task.id ?
