@@ -1,15 +1,47 @@
-import { Table, TableBody, TableCell, TableRow } from "@mui/material";
+import { Table, TableBody, TableCell, TableRow, Button } from "@mui/material";
 import DeleteTask from "./DeleteTask";
 import EditTask from "./EditTasks";
+import { useState } from "react";
+import taskService from '../Services/Tasks';
 
 function DisplayTasks({ tasksList, setTasks }){
 
-    // const handleTaskClick = ({ description }) => {
-    //     return(<div>
-    //         <p>{description}</p>
-    //         { console.log(description) }
-    //     </div>)
-    // }
+    const[Editedtaskid, setEditedTaskid] = useState(null)
+
+    const handleEditButtonClick = (taskid) => {
+        setEditedTaskid(taskid)
+        console.log(taskid)
+    }
+
+    const handleEditSubmit = (taskId, newName, newDescription) => {
+        console.log(newName, newDescription)
+        const editedTask = {
+            id: taskId,
+            name: newName,
+            description: newDescription
+        }
+        taskService.editTasks(taskId, editedTask).then(response=>{
+            console.log("response from edit request: ", response)
+            // setTasks(prevTasks=>[...prevTasks.filter(task => task.id !== taskId), response.data])
+            const updatedTasksList = tasksList.map(task => {
+                if (task.id === taskId) {
+                    return editedTask;
+                } else {
+                    return task;
+                }
+            });
+            // Update state with the updated tasks list
+            setTasks(updatedTasksList);
+            setEditedTaskid(null)
+        }).catch(error=>{
+            console.log("error during editing the task: ", error.message)
+        })
+        setEditedTaskid(null);
+    };
+
+    const handleEditCancel = () => {
+        setEditedTaskid(null)
+    }
     
     return(
         <div>
@@ -25,7 +57,11 @@ function DisplayTasks({ tasksList, setTasks }){
                                 </TableCell>
                                 {/* {console.log(task)} */}
                                 <TableCell align="center">
-                                    <EditTask taskitem={task} />
+                                    {
+                                        Editedtaskid === task.id ?
+                                        (<EditTask taskitem={task} onsubmit={handleEditSubmit} oncancel={handleEditCancel}/>)
+                                        : (<Button variant="contained" size="small" onClick={()=>handleEditButtonClick(task.id)}>Edit Button</Button>)
+                                    } 
                                 </TableCell>
                                 <TableCell align="center">
                                     <DeleteTask tasksList={tasksList} taskitem={task} setTasks={setTasks} />
