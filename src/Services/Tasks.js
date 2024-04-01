@@ -24,9 +24,24 @@ const deleteTask = (id) => {
     )
 }
 
+const editName = (id, updatedName) => {
+    return(
+        axios.put(`http://localhost:8000/api/put/editName/${id}/`, updatedName)
+    )
+}
+
+const editDescription = (id, updatedDescription) => {
+    console.log(id)
+    return(
+        axios.put(`http://localhost:8000/api/editdes/${id}/`, updatedDescription)
+    )
+}
+
 export default{
     getAllTasks: getAllTasks, 
     createTasks: createTasks, 
     editTasks: editTasks, 
-    deleteTask: deleteTask
+    deleteTask: deleteTask,
+    editName: editName,
+    editDescription: editDescription
 }
